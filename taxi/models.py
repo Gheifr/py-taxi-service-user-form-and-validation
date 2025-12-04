@@ -1,6 +1,6 @@
 import re
 
-from django.contrib.auth import get_user_model
+from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -44,7 +44,7 @@ class Driver(AbstractUser):
 class Car(models.Model):
     model = models.CharField(max_length=255)
     manufacturer = models.ForeignKey(Manufacturer, on_delete=models.CASCADE)
-    drivers = models.ManyToManyField(get_user_model(),
+    drivers = models.ManyToManyField(settings.AUTH_USER_MODEL,
                                      related_name="cars",)
 
     def __str__(self):
